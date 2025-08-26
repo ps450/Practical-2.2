@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Product Filter</title>
+  <style>
+    body {font-family: Arial, sans-serif; padding: 20px;}
+    .container {border: 1px solid #333; padding: 15px; margin-bottom: 20px;}
+    h2 {margin-top: 0;}
+    select {margin-bottom: 15px; padding: 5px;}
+    .product {border: 1px solid #ddd; padding: 10px; margin: 5px 0; border-radius: 5px;}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Product List</h2>
+    <label>Filter by Category: 
+      <select id="filter">
+        <option value="All">All</option>
+        <option value="Clothing">Clothing</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Books">Books</option>
+      </select>
+    </label>
+    <div id="product-list"></div>
+  </div>
+
+  <script>
+    const products = [
+      {name: 'T-Shirt', category: 'Clothing'},
+      {name: 'Jeans', category: 'Clothing'},
+      {name: 'Headphones', category: 'Electronics'},
+      {name: 'Smartphone', category: 'Electronics'},
+      {name: 'Novel', category: 'Books'},
+      {name: 'Cookbook', category: 'Books'}
+    ];
+    const list = document.getElementById('product-list');
+    const filter = document.getElementById('filter');
+
+    function displayProducts(items) {
+      list.innerHTML = '';
+      items.forEach(p => {
+        const div = document.createElement('div');
+        div.className = 'product';
+        div.textContent = p.name;
+        list.appendChild(div);
+      });
+    }
+
+    filter.addEventListener('change', () => {
+      const value = filter.value;
+      if (value === 'All') displayProducts(products);
+      else displayProducts(products.filter(p => p.category === value));
+    });
+
+    displayProducts(products);
+  </script>
+</body>
+</html>
